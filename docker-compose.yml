@@ -13,6 +13,8 @@ services:
     volumes:
       - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - localstack_nw
 
   localstack_client:
     container_name: localstack-client
@@ -27,3 +29,9 @@ services:
       - "./:/workspace"
     depends_on:
       - localstack
+    networks:
+      - localstack_nw
+
+networks:
+  localstack_nw:
+    driver: bridge
